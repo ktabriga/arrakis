@@ -1,3 +1,3 @@
 # arrakis
 
-Fremen are warrios people from duna
+Fremen are warriors people from duna
