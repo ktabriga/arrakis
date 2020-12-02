@@ -28,6 +28,10 @@ jobs:
           tag-prefix: ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          minor-wording:  'feature,minor'
+          patch-wording:  'patch,fixes,hot-fix'
+    rc-wording:     'RELEASE,alpha'
       - name: "cat package.json"
         run: cat ./package.json
       - name:  'Output Step'
