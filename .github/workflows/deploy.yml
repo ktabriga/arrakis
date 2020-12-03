@@ -1,0 +1,31 @@
+name: "Deploy"
+
+on:
+  workflow_dispatch:
+    inputs:
+      code:
+        description: 'Deploy authentication code'
+        required: true
+
+jobs:
+  securityVerification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: verify authentication code
+        run: |
+          if [[ ${{ github.event.inputs.code }} = ${{ secrets.DEPLOY_AUTHENTICATION_CODE }} ]] then
+            exit 0;
+          fi
+          exit 1;
+      - name: Deploy with success
+        if: success()
+        run: echo "Deploy allowed"
+      - name: Deploy with success
+        if: error()
+        run: echo "Deploy Forbiden"
+  deploy:
+    needs: securityVerification
+    runs-on: ubuntu-latest
+    steps:
+      - name: do deploy
+        run: echo "Deploy done"
