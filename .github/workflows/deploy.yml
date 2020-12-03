@@ -21,7 +21,7 @@ jobs:
         if: success()
         run: echo "Deploy allowed"
       - name: Deploy with success
-        if: error()
+        if: failure()
         run: echo "Deploy Forbiden"
   deploy:
     needs: securityVerification
