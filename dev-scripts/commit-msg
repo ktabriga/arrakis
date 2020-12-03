@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const childProcessExec = require('child_process').exec
+const util = require('util')
+const exec = util.promisify(childProcessExec);
+
+
+checkCommitMesage();
+
+async function checkCommitMesage() {
+  const message = fs.readFileSync(process.argv[2], 'utf8').trim()
+
+  if (message.toLowerCase().startsWith('merge branch')) {
+    process.exit(0);
+    return;
+  }
+
+  const isValid = message.startsWith('feature')
+    || message.startsWith('minor -')
+    || message.startsWith('hotfix -')
+    || message.startsWith('patch -')
+    || message.startsWith('fixes -')
+    || message.includes('BREAKING CHANGE -')
+    || message.includes('major -')
+
+  if (!isValid) {
+    console.log(' ')
+    console.log('There is something wrong with your commit message')
+    console.log('It should start with a valid type prefix')
+    console.log('--------------------------------------------------------------------')
+    console.log('Valid prefix types are')
+    console.log('for patch increment(0.0.x): hotfix, patch, fixes')
+    console.log('for minor increment(0.x.0): feature, minor')
+    console.log('for major increment(x.0.0): BREAKING CHANGE, major')
+    console.log('example: hotfix - fix bug in transaction flow #123')
+    console.log('--------------------------------------------------------------------')
+    console.log('Your commit will be rejected. Please re-commit your work again with a proper commit message');
+    console.log('If you think there is something wrong with this message, or that your commit message is not being validated properly, check the commit-msg git hook')
+    console.log(' ')
+
+    process.exit(1)
+  }
+    process.exit(0)
+}

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+chmod 774 ./commit-msg
+cp ./commit-msg ../.git/hooks
