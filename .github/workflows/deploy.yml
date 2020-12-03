@@ -17,10 +17,10 @@ jobs:
             exit 0;
           fi
           exit 1;
-      - name: Deploy with success
+      - name: Deploy allowed
         if: success()
         run: echo "Deploy allowed"
-      - name: Deploy with success
+      - name: Deploy forbiden
         if: failure()
         run: echo "Deploy Forbiden"
   deploy:
