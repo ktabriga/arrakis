@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: verify authentication code
         run: |
-          if [[ ${{ github.event.inputs.code }} == ${{ secrets.DEPLOY_AUTHENTICATION_CODE }} ]] then
+          if [[ ${{ github.event.inputs.code }} == ${{ secrets.DEPLOY_AUTHENTICATION_CODE }} ]]; then
             exit 0;
           fi
           exit 1;
