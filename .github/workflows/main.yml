@@ -24,11 +24,10 @@ jobs:
       - name: "Automated Version Bump"
         id: version-bump
         uses: "phips28/gh-action-bump-version@master"
-        with:
-          tag-prefix: ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          tag-prefix: ''
           minor-wording:  'feature,minor'
           patch-wording:  'patch,fixes,hot-fix'
           rc-wording:     'RELEASE,alpha'
